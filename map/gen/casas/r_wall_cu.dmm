@@ -1,0 +1,8 @@
+"a" = (/turf/solid/wall/r_wall,/area)
+"b" = (/turf/flat/floor,/area)
+
+(1,1,1) = {"
+aaa
+aba
+aaa
+"}

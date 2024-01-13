@@ -1,0 +1,153 @@
+#define LAYER_BASE					6
+
+#define LAYER_FLOOR                 LAYER_BASE
+
+#define LAYER_FLOOR_PLATING         (LAYER_FLOOR + 0.1)
+
+#define LAYER_FLOOR_ROCK			(LAYER_FLOOR + 0.11)
+#define LAYER_FLOOR_ROAD			(LAYER_FLOOR + 0.12)
+#define LAYER_FLOOR_ROAD_DECAL		(LAYER_FLOOR + 0.13)
+#define LAYER_FLOOR_SIDEWALK		(LAYER_FLOOR + 0.14)
+#define LAYER_FLOOR_GRAVEL			(LAYER_FLOOR + 0.15)
+#define LAYER_FLOOR_DIRT			(LAYER_FLOOR + 0.16)
+#define LAYER_FLOOR_SAND			(LAYER_FLOOR + 0.17)
+#define LAYER_FLOOR_GRASS			(LAYER_FLOOR + 0.18)
+#define LAYER_FLOOR_GRASS_DENSE		(LAYER_FLOOR + 0.19)
+
+#define LAYER_FLOOR_PIPE			(LAYER_FLOOR + 0.2)
+#define LAYER_FLOOR_TILE            (LAYER_FLOOR + 0.3)
+#define LAYER_FLOOR_DECAL			(LAYER_FLOOR + 0.4)
+#define LAYER_FLOOR_WEATHER			(LAYER_FLOOR + 0.5)
+#define LAYER_FLOOR_VENT			(LAYER_FLOOR + 0.6)
+#define LAYER_FLOOR_CARPET			(LAYER_FLOOR_VENT - 0.01)
+#define LAYER_FLOOR_CONVEYOR		(LAYER_FLOOR + 0.7)
+#define LAYER_FLOOR_SCENERY			(LAYER_FLOOR + 0.8)
+#define LAYER_FLOOR_EFFECTS			(LAYER_FLOOR + 0.9)
+
+#define LAYER_WALL (LAYER_BASE + 1)
+
+#define LAYER_WALL_LARGE (LAYER_WALL + 0.5)
+
+#define LAYER_WALL_DECAL (LAYER_WALL + 0.6)
+
+#define LAYER_BLOOD      (LAYER_WALL + 0.7)
+
+#define LAYER_TABLE (LAYER_BASE+2)
+
+#define LAYER_OBJ              (LAYER_BASE + 3)
+#define LAYER_OBJ_DOOR_OPEN    (LAYER_OBJ - 0.2)
+#define LAYER_OBJ_GRILLE 	   (LAYER_OBJ + 0.1)
+#define LAYER_OBJ_WINDOW 	   (LAYER_OBJ + 0.2)
+#define LAYER_OBJ_DOOR_CLOSED  (LAYER_OBJ + 0.3)
+#define LAYER_OBJ_CRATE        (LAYER_OBJ + 0.4)
+
+#define LAYER_OBJ_ITEM         (LAYER_BASE+4)
+
+#define LAYER_MOB_SWIMMING     (LAYER_BASE+5)
+
+#define LAYER_MOB_DEAD         (LAYER_BASE+6)
+
+#define LAYER_OBJ_AIRLOCK      (LAYER_BASE+7)
+
+#define LAYER_MOB              (LAYER_BASE+8)
+
+#define LAYER_MOB_BELOW        (LAYER_MOB - 0.1)
+
+
+
+
+
+#define LAYER_MOB_FIRE         (LAYER_BASE+10)
+
+#define LAYER_MOB_ABOVE        (LAYER_BASE+11)
+
+#define LAYER_MOB_WATER        (LAYER_BASE+12)
+
+#define LAYER_LARGE_OBJ        (LAYER_BASE+13)
+
+#define LAYER_MOB_FLYING       (LAYER_BASE+14)
+
+
+
+#define LAYER_PROJECTILE       (LAYER_BASE+15)
+
+
+
+#define LAYER_EFFECT           (LAYER_BASE+16)
+
+
+
+#define LAYER_GHOST            (LAYER_BASE+17)
+
+#define LAYER_AREA             (LAYER_BASE+20) //Weather
+
+#define LAYER_LIGHTING         (LAYER_BASE+50)
+#define LAYER_LIGHTING_DYNAMIC (LAYER_BASE+51)
+#define LAYER_LIGHTING_EMISSIVE (LAYER_BASE+52)
+
+#define LAYER_FLASH (LAYER_BASE+70)
+
+#define LAYER_SCREEN_BLOOD (LAYER_BASE+80)
+
+#define LAYER_HUD (LAYER_BASE+90)
+#define LAYER_HUD_ITEMS (LAYER_BASE+100)
+#define LAYER_HUD_TOOLTIP (LAYER_BASE+110)
+#define LAYER_HUD_ALL (LAYER_BASE+900)
+
+
+//Clothing
+#define LAYER_MOB_NONE                 (LAYER_MOB + 0.1)
+#define LAYER_MOB_WINGS_BEHIND         (LAYER_MOB + 0.2)
+#define LAYER_MOB_TAIL_BEHIND          (LAYER_MOB + 0.3)
+#define LAYER_MOB_WINGS_ADJACENT       (LAYER_MOB + 0.4)
+#define LAYER_MOB_TORSO                (LAYER_MOB + 0.5)
+
+#define LAYER_MOB_CLOTHING_UNDERSHIRT  (LAYER_MOB + 1.0)
+#define LAYER_MOB_ANTENNAE_BEHIND      (LAYER_MOB + 1.1)
+#define LAYER_MOB_HEAD                 (LAYER_MOB + 1.2)
+#define LAYER_MOB_EAR                  (LAYER_MOB + 1.3)
+#define LAYER_MOB_EYE                  (LAYER_MOB + 1.4)
+#define LAYER_MOB_CLOTHING_EAR         (LAYER_MOB + 1.5)
+
+#define LAYER_MOB_CLOTHING_HEADWRAP    (LAYER_MOB + 2.0)
+#define LAYER_MOB_CLOTHING_EYE         (LAYER_MOB + 2.1)
+#define LAYER_MOB_GROIN                (LAYER_MOB + 2.2)
+#define LAYER_MOB_ARMS                 (LAYER_MOB + 2.3)
+
+#define LAYER_MOB_LEGS                 (LAYER_MOB + 3.0)
+#define LAYER_MOB_FEET                 (LAYER_MOB + 3.1)
+#define LAYER_MOB_CLOTHING_UNDERWEAR   (LAYER_MOB + 3.2)
+#define LAYER_MOB_CLOTHING_SOCKS       (LAYER_MOB + 3.3)
+#define LAYER_MOB_CLOTHING_SHOES       (LAYER_MOB + 3.4)
+
+#define LAYER_MOB_CLOTHING_PANTS       (LAYER_MOB + 4.0)
+#define LAYER_MOB_CLOTHING_UNIFORM     (LAYER_MOB + 4.1)
+#define LAYER_MOB_CLOTHING_NECK_UNDER  (LAYER_MOB + 4.2)
+#define LAYER_MOB_CLOTHING_BELT        (LAYER_MOB + 4.3)
+#define LAYER_MOB_CLOTHING_ARMOR       (LAYER_MOB + 4.4)
+
+#define LAYER_MOB_INJURY               (LAYER_MOB + 5.0)
+#define LAYER_MOB_HANDS                (LAYER_MOB + 5.1)
+#define LAYER_MOB_CLOTHING_RING        (LAYER_MOB + 5.2)
+#define LAYER_MOB_CLOTHING_GLOVES      (LAYER_MOB + 5.3)
+#define LAYER_MOB_INJURY_HANDS         (LAYER_MOB + 5.4)
+
+#define LAYER_MOB_CLOTHING_HARDSUIT    (LAYER_MOB + 6.0)
+#define LAYER_MOB_CLOTHING_COAT        (LAYER_MOB + 6.1)
+#define LAYER_MOB_CLOTHING_COAT_OVER   (LAYER_MOB + 6.2)
+#define LAYER_MOB_CLOTHING_NECK_OVER   (LAYER_MOB + 6.3)
+#define LAYER_MOB_TAIL_FRONT           (LAYER_MOB + 6.4)
+#define LAYER_MOB_WINGS_FRONT          (LAYER_MOB + 6.5)
+#define LAYER_MOB_CLOTHING_BACK        (LAYER_MOB + 6.6)
+
+#define LAYER_MOB_ANTENNAE_FRONT       (LAYER_MOB + 7.1)
+#define LAYER_MOB_HAIR_FACE            (LAYER_MOB + 7.2)
+#define LAYER_MOB_HAIR_HEAD            (LAYER_MOB + 7.3)
+#define LAYER_MOB_HAIR_ABOVE           (LAYER_MOB + 7.4)
+#define LAYER_MOB_CLOTHING_MASK        (LAYER_MOB + 7.5)
+#define LAYER_MOB_CLOTHING_HELMET      (LAYER_MOB + 7.6)
+#define LAYER_MOB_CLOTHING_ALL         (LAYER_MOB + 7.7)
+#define LAYER_MOB_BLOB                 (LAYER_MOB + 7.8)
+
+#define LAYER_MOB_HELD                 (LAYER_MOB + 7.9)
+

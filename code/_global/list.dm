@@ -1,0 +1,1 @@
+var/global/list/player_list = list()

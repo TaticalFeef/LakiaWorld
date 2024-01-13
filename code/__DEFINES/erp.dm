@@ -1,0 +1,7 @@
+//erp.dm
+#define MAX_BUCKET_METER 100
+#define REST_PERIOD 500
+
+//_tentacle.dm
+#define TENTACLE_POWER_THRESHOLD 10
+#define TENTACLE_DAMAGE_MULTIPLIER 10

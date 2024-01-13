@@ -1,0 +1,1 @@
+#define TEXT_TALK "t_talk"
