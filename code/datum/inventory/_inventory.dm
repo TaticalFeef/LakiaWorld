@@ -40,11 +40,11 @@
 		index++
 
 /datum/inventory/proc/add_item(obj/item/I)
-	if(I.weight + calculate_total_weight() > max_carry_weight)
-		owner << "Inventário cheio! Item pesado!"
+	if(can_fit_item(I))
+		owner << "Inventário cheio!"
 		return FALSE
 	for(var/datum/inventory_slot/slot in slots)
-		if(!slot.occupied && slot.is_item_compatible(I))
+		if(slot.can_hold_item(I))
 			return slot.add_item(I)
 	return FALSE
 
@@ -61,55 +61,7 @@
 			total_weight += slot.contained_item.weight
 	return total_weight
 
-/datum/inventory_slot
-	var/occupied = FALSE
-	var/slot_type
-	var/obj/item/contained_item
-	var/obj/hud/inventory/linked_hud
-	var/mob/owner
-	var/datum/inventory/manager
-
-/datum/inventory_slot/New(mob/__owner, datum/inventory/_manager)
-	owner = __owner
-	manager = _manager
-	linked_hud = new(_owner = __owner)
-
-/datum/inventory_slot/proc/is_item_compatible(obj/item/I)
-	return TRUE
-
-/datum/inventory_slot/proc/add_item(obj/item/I)
-	if(occupied || !I)
+/datum/inventory/proc/can_fit_item(obj/item/I)
+	if(I.weight + calculate_total_weight() > max_carry_weight)
 		return FALSE
-	I.loc = src
-	contained_item = I
-	occupied = TRUE
-	update_hud()
 	return TRUE
-
-/datum/inventory_slot/proc/remove_item()
-	if(!occupied)
-		return null
-	var/obj/item/I = contained_item
-	I.loc = owner.loc
-	contained_item = null
-	occupied = FALSE
-	update_hud()
-	return I
-
-/datum/inventory_slot/proc/transfer_item(datum/inventory_slot/target_slot)
-	if(!occupied || !target_slot)
-		return FALSE
-	if(target_slot.occupied)
-		return FALSE
-	target_slot.contained_item = contained_item
-	target_slot.occupied = TRUE
-	target_slot.update_hud()
-
-	contained_item = null
-	occupied = FALSE
-	update_hud(null)
-	return TRUE
-
-/datum/inventory_slot/proc/update_hud()
-	if(linked_hud)
-		linked_hud.update_appearance(contained_item)

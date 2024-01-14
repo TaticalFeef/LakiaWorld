@@ -10,7 +10,7 @@
 /mob/living/human/var/consent = FALSE
 /mob/living/human/var/datum/tentacleType/tentacle
 
-/mob/living/human/New()
+/mob/living/human/Initialize()
 	. = ..()
 	var/pos = pick(subtypesof(/datum/tentacleType/))
 	tentacle = new pos

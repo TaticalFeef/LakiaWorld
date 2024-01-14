@@ -10,6 +10,7 @@
 		return FALSE
 
 	var/datum/inventory_slot/hand_slot = inventory.hand_slots[hand_type]
+
 	if(!hand_slot)
 		return FALSE
 
@@ -18,3 +19,9 @@
 		return FALSE
 
 	return hand_slot.add_item(I)
+
+/mob/living/proc/get_held_item()
+	var/datum/inventory_slot/hand_slot = inventory.hand_slots[selected_hand]
+	if(hand_slot && hand_slot.occupied)
+		return hand_slot.contained_item
+	return null
