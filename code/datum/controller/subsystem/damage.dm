@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(damage)
 			zDel(DI)
 			continue
 		DI.tick_count++
-		if(DI.tick_count >= DI.duration)
+		if(DI.tick_count > DI.duration)
 			queued_damage -= DI
 			zDel(DI)
 			continue
@@ -23,6 +23,5 @@ SUBSYSTEM_DEF(damage)
 
 /subsystem/damage/proc/queue_damage(datum/damage_instance/DI)
 	DI.tick_count = 0
-	DI.duration += 1
 	DI.next_tick = world.time + DI.tick_rate
 	queued_damage |= DI

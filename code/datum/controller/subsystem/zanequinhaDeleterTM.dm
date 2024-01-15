@@ -52,7 +52,7 @@ proc/zDel(datum/D, hint = ZDEL_HINT_QUEUE)
 
 /subsystem/garbage/proc/queue_for_deletion(datum/D, queue_type)
 	if(!D || !istype(D))
-		world << "tentativa de dar vidro pro gari"
+		world.log << "tentativa de dar vidro pro gari"
 		return
 
 	D.zdeleting = TRUE
@@ -60,7 +60,7 @@ proc/zDel(datum/D, hint = ZDEL_HINT_QUEUE)
 
 	for(var/list/entry in garbage_queues[queue_type])
 		if(istype(entry, /list) && length(entry) == 2 && entry[2] == refID)
-			//world << "Datum j� est� no compactador: [refID]"
+			world.log << "Datum j� est� no compactador: [refID]"
 			//raiva indescritivel
 			return
 
