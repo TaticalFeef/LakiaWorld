@@ -44,6 +44,11 @@
 	vel_x   = cos(angle) * float_speed
 	vel_y   = sin(angle) * float_speed
 
+	pixel_x_float_visual = vel_x
+	pixel_y_float_visual = vel_y
+	pixel_x_float_physical = vel_x
+	pixel_y_float_physical = vel_y
+
 	SSprojectiles.add_projectile(src)
 
 /obj/projectile/Destroyed()

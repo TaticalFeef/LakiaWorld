@@ -1,0 +1,1 @@
+#define PROC_REF(X) (nameof(.proc/##X))

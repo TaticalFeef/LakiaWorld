@@ -51,6 +51,8 @@
 #define COMSIG_MOB_INTERACT "mob_interact"
 #define COMSIG_MOB_HEALTH_CHANGED "mob_health_changed"
 
+#define COMSIG_SPELL_CAST_TARGETED "spell_targeted_atoms"
+
 #define COMSIG_HUMAN_LIFE "mob_ticked"
 
 #define SEND_SIGNAL(target, sigtype, arguments...) ( !target.comp_lookup || !target.comp_lookup[sigtype] ? NONE : target._SendSignal(sigtype, list(target, ##arguments)) )

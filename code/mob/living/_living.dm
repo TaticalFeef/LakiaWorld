@@ -8,6 +8,7 @@
 	AddComponent(/datum/component/mood)
 	initialize_inventory(10)
 	health = new /datum/health(100, src) //hihe
+	contents += new /obj/spell/fireball(src)
 
 /mob/living/Login()
 	. = ..()
