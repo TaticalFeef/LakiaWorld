@@ -1,9 +1,18 @@
 /obj/item
+	name = "alow"
+	var/slot_state
 	var/weight = 50
 	var/size
 	var/base_damage = 10
 	var/damage_type = DAMAGE_PHYSICAL
 	icon = 'player.dmi'
+
+/obj/item/Initialize()
+	. = ..()
+
+/obj/item/Destroyed()
+	SSstats_manager.unregister_atom(src)
+	return ..()
 
 /obj/item/on_left_clicked(var/atom/clicker, var/obj/item/holding)
 	..()

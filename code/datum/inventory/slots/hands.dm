@@ -7,7 +7,7 @@
 	manager = _manager
 	linked_hud = new /obj/hud/inventory/hand(_owner = __owner, _hand_type = hand_type, _linked_slot = src)
 
-/datum/inventory_slot/hand/can_hold_item(obj/item/I) //n√£o considerar peso
+/datum/inventory_slot/hand/can_hold_item(obj/item/I) //n„o considerar peso
 	if(!occupied && I && is_item_compatible(I))
 		return TRUE
 	return FALSE

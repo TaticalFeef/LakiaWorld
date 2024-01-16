@@ -21,7 +21,6 @@
 	pre_cast()
 	if(can_cast())
 		if(length(targets))
-			world << "sendin it"
 			SEND_SIGNAL(src, COMSIG_SPELL_CAST_TARGETED, src.targets)
 		if(post_cast())
 			return TRUE

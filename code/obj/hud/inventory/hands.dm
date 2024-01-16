@@ -1,5 +1,7 @@
 /obj/hud/inventory/hand
 	icon_state = HAND_LEFT
+	use_slot_state = FALSE
+
 	var/hand_type = HAND_LEFT
 	var/image/selected_overlay
 
@@ -31,8 +33,8 @@
 		else
 			L.selected_hand = hand_type
 
-	clicked_hand_slot.linked_hud.update_appearance(clicked_hand_slot.contained_item)
-	current_hand_slot.linked_hud.update_appearance(current_hand_slot.contained_item)
+	clicked_hand_slot?.linked_hud?.update_appearance(clicked_hand_slot?.contained_item)
+	current_hand_slot?.linked_hud?.update_appearance(current_hand_slot?.contained_item)
 
 /obj/hud/inventory/hand/update_appearance(obj/item/I)
 	..()

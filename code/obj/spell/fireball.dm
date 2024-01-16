@@ -19,12 +19,9 @@
 /datum/spell_piece/fireball
 
 /datum/spell_piece/fireball/cast_targeted(var/src,var/list/atom/targets)
-	world << "receivin it [targets]"
 	for(var/tgt in targets)
-		world << tgt
 		var/mob/living/target = tgt
 		if(istype(target))
-			world << "shooting it"
 			//caster.shoot_projectile(caster, target, null, null, /obj/projectile/fireball, "fire", 0, 0, 0, 12, 1, "#FF4500")
 			var/turf/target_turf = get_turf(target)
 			if(!target_turf)
@@ -33,9 +30,8 @@
 			var/diff_x = target_turf.x - owner.x
 			var/diff_y = target_turf.y - owner.y
 			var/angle = ATAN2(diff_x, diff_y)
-			world << angle
-			//aaaaaaaaaaaaaaaaaaa
-			new /obj/projectile/fireball(owner.loc, angle, 30)
+			var/obj/projectile/fireball/P = new /obj/projectile/fireball(owner.loc, angle, 30)
+			P.set_dir(get_dir(P,target))
 
 /obj/projectile/fireball
 	name = "Fireball"
@@ -45,6 +41,12 @@
 
 /obj/projectile/fireball/handle_collision(turf/collision_turf)
 	for(var/mob/living/M in range(explosion_radius, collision_turf))
-		M.apply_damage(fire_damage, "fire")
-
-	zDel(src)
+		var/datum/damage_instance/DI = new
+		DI.amount = fire_damage / 4
+		DI.damage_type = DAMAGE_PHYSICAL
+		DI.victim = M
+		DI.source = src
+		DI.tick_rate = 4
+		DI.duration = 4
+		M.apply_damage(DI)
+	. = ..()

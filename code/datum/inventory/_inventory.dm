@@ -5,15 +5,17 @@
 /datum/inventory
 	var/list/datum/inventory_slot/slots = list()
 	var/list/hand_slots = list()
+	var/list/datum/inventory_slot/equipment_slots = list()
 
 	var/mob/owner
-	var/max_carry_weight = 100
+	var/max_carry_weight = 1000
 
-/datum/inventory/New(var/slot_count, mob/_owner)
+/datum/inventory/New(var/slot_count,var/equipment_slot_count, mob/_owner)
 	owner = _owner
 	slots = list()
 	initialize_hand_slots()
 	initialize_inventory_slots(slot_count)
+	initialize_equipment_slots(equipment_slot_count)
 	position_slots()
 
 /datum/inventory/proc/initialize_hand_slots()
@@ -25,6 +27,11 @@
 		var/datum/inventory_slot/new_slot = new(owner, src)
 		slots += new_slot
 
+/datum/inventory/proc/initialize_equipment_slots(var/equipment_slot_count)
+	for(var/i = 1; i <= equipment_slot_count; i++)
+		var/datum/inventory_slot/equipment/new_equipment_slot = new /datum/inventory_slot/equipment(owner, src)
+		equipment_slots += new_equipment_slot
+
 /datum/inventory/proc/position_slots()
 	var/datum/screen_manager/screen_mgr = new(owner)
 	var/index = 1
@@ -33,8 +40,8 @@
 	//screen_mgr.position_element(hand_slots[HAND_LEFT].linked_hud, index)
 	//screen_mgr.position_element(hand_slots[HAND_RIGHT].linked_hud, index + 1)
 	index += 2
-
-	for(var/datum/inventory_slot/slot in slots)
+	var/list/total = slots + equipment_slots
+	for(var/datum/inventory_slot/slot in total)
 		screen_mgr.add_to_screen(slot.linked_hud)
 		screen_mgr.position_element(slot.linked_hud, index)
 		index++
@@ -43,6 +50,10 @@
 	if(can_fit_item(I))
 		owner << "Inventário cheio!"
 		return FALSE
+	if(istype(I, /obj/item/equipable))
+		for(var/datum/inventory_slot/equipment/slot in equipment_slots)
+			if(slot.can_hold_item(I))
+				return slot.add_item(I)
 	for(var/datum/inventory_slot/slot in slots)
 		if(slot.can_hold_item(I))
 			return slot.add_item(I)

@@ -59,71 +59,45 @@
 	var/movement_x_per_tick = vel_x * tick_rate
 	var/movement_y_per_tick = vel_y * tick_rate
 
-	// fisica
-	pixel_x_float_physical += movement_x_per_tick
-	pixel_y_float_physical += movement_y_per_tick
+	for (var/i = 1; i <= max(abs(movement_x_per_tick), abs(movement_y_per_tick)); i++)
+		pixel_x_float_physical += sign(movement_x_per_tick)
+		pixel_y_float_physical += sign(movement_y_per_tick)
 
-	// visoual
-	pixel_x_float_visual += movement_x_per_tick
-	pixel_y_float_visual += movement_y_per_tick
+		if (check_collision())
+			return
+	var/max_normal = max(abs(pixel_x_float_physical), abs(pixel_y_float_physical))
+	update_visual_position(tick_rate, max_normal)
 
-	if (!start_time)
-		start_time = world.time
-	start_time += TICKS_TO_DECISECONDS(tick_rate)
+/obj/projectile/proc/check_collision()
+	var/new_x = x + round(pixel_x_float_physical / TILE_SIZE)
+	var/new_y = y + round(pixel_y_float_physical / TILE_SIZE)
+	var/turf/new_turf = locate(new_x, new_y, z)
+
+	if (new_turf && new_turf.density)
+		handle_collision(new_turf)
+		return TRUE
+
+	return FALSE
+
+/obj/projectile/proc/handle_collision(turf/collision_turf)
+	zDel(src)
+
+/obj/projectile/proc/update_visual_position(var/tick_rate, var/max_normal)
+	pixel_x_float_visual = pixel_x_float_physical
+	pixel_y_float_visual = pixel_y_float_physical
 
 	var/rounded_x = CEILING(pixel_x_float_visual, 1)
 	var/rounded_y = CEILING(pixel_y_float_visual, 1)
 
 	if (pixel_x != rounded_x || pixel_y != rounded_y)
-		var/pixel_offset_x = vel_x
-		var/pixel_offset_y = vel_y
-		var/norm = max(abs(pixel_offset_x), abs(pixel_offset_y))
-		pixel_offset_x = round((pixel_offset_x / norm) * TILE_SIZE)
-		pixel_offset_y = round((pixel_offset_y / norm) * TILE_SIZE)
+		var/pixel_offset_x = round((vel_x / max_normal) * TILE_SIZE)
+		var/pixel_offset_y = round((vel_y / max_normal) * TILE_SIZE)
 
 		if (world.tick_usage < 90 && max(abs(vel_x), abs(vel_y)) < TILE_SIZE * TICKS_TO_SECONDS(SSprojectiles.tick_rate))
 			animate(src, pixel_x = rounded_x + pixel_offset_x, pixel_y = rounded_y + pixel_offset_y, time = tick_rate)
 		else
 			pixel_x = rounded_x + pixel_offset_x
 			pixel_y = rounded_y + pixel_offset_y
-
-	check_turf_transition()
-
-/obj/projectile/proc/check_turf_transition()
-	var/max_normal = max(abs(vel_x), abs(vel_y))
-	var/x_normal = vel_x / max_normal
-	var/y_normal = vel_y / max_normal
-
-	var/current_loc_x = x + FLOOR(((TILE_SIZE / 2) + pixel_x_float_physical + x_normal * TILE_SIZE) / TILE_SIZE, 1)
-	var/current_loc_y = y + FLOOR(((TILE_SIZE / 2) + pixel_y_float_physical + y_normal * TILE_SIZE) / TILE_SIZE, 1)
-
-	if ((last_loc_x != current_loc_x) || (last_loc_y != current_loc_y))
-		if ((last_loc_x != current_loc_x) && (last_loc_y != current_loc_y))
-			if (intercardinal_fix_switch)
-				pixel_x_float_physical -= vel_x
-				current_loc_x = x + FLOOR(((TILE_SIZE / 2) + pixel_x_float_physical + x_normal * TILE_SIZE) / TILE_SIZE, 1)
-			else
-				pixel_y_float_physical -= vel_y
-				current_loc_y = y + FLOOR(((TILE_SIZE / 2) + pixel_y_float_physical + y_normal * TILE_SIZE) / TILE_SIZE, 1)
-
-			intercardinal_fix_switch = !intercardinal_fix_switch
-
-		current_loc = locate(current_loc_x, current_loc_y, z)
-		if (!on_enter_tile(previous_loc, current_loc))
-			return FALSE
-		previous_loc = current_loc
-		last_loc_x = current_loc_x
-		last_loc_y = current_loc_y
-	else if (steps_current == 0 && !on_enter_tile(loc, loc))
-		return FALSE
-
-/obj/projectile/proc/animate_proj_movement(var/tick_rate)
-	var/new_pixel_x = round(pixel_x_float_visual)
-	var/new_pixel_y = round(pixel_y_float_visual)
-
-	if(pixel_x != new_pixel_x || pixel_y != new_pixel_y)
-		var/animation_time = max(1, tick_rate)
-		animate(src, pixel_x = new_pixel_x, pixel_y = new_pixel_y, time = animation_time, flags = ANIMATION_RELATIVE)
 
 /obj/projectile/proc/on_enter_tile(atom/old_loc, atom/new_loc)
 	// quando o projetil entra num tile
@@ -141,50 +115,12 @@
 	return TRUE
 
 /obj/machine/gun/icon = 'gun.dmi'
-/*
-/mob/var/atom/last_clicked_atom
-/mob/var/image/target_overlay
 
-/mob/proc/update_target_overlay(atom/new_target)
-	if(!new_target)
-		if(target_overlay)
-			client.screen -= target_overlay
-			zDel(target_overlay)
-			target_overlay = null
-			SSoverlay.remove_mob(src)
-	return
+/mob/verb/test_shoot()
+	set name = "Test Shoot"
+	set category = "Test"
 
-	var/turf/T = locate(new_target.x, new_target.y, new_target.z)
-	if(!target_overlay)
-		target_overlay = image('target.dmi', T, "target_icon", layer = 1000)
-		src << target_overlay
-		SSoverlay.add_mob(new_target)
-	else
-		target_overlay.loc = T
-
-/mob/verb/fire()
-	set name = "Fire"
-	set category = "Actions"
-
-	var/clicked_atom = last_clicked_atom
-	if(!clicked_atom)
-		return
-
-	var/turf/target_turf = get_turf(clicked_atom)
-	if(!target_turf)
-		return
-
-	var/diff_x = target_turf.x - src.x
-	var/diff_y = target_turf.y - src.y
-	var/angle = ATAN2(diff_x, diff_y)
-
-	var/obj/projectile/P = new /obj/projectile(loc, angle, 10)
-	P.name = "alow"
-
-/atom/Click(atom/clicked, location, control, params)
-	..()
-	if(ismob(usr))
-		var/mob/M = usr
-		M.last_clicked_atom = clicked
-		M.update_target_overlay(clicked)
-*/
+	var/angle = 90
+	var/float_speed = 30
+	var/obj/projectile/P = new /obj/projectile(loc, angle, float_speed)
+	P.name = "Test Projectile"

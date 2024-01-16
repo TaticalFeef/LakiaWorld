@@ -1,8 +1,8 @@
 /mob/living/
 	var/selected_hand = HAND_RIGHT
 
-/mob/living/proc/initialize_inventory(var/slot_count)
-	inventory = new /datum/inventory(slot_count, src)
+/mob/living/proc/initialize_inventory(var/slot_count,var/equipment_slot_count)
+	inventory = new /datum/inventory(slot_count,equipment_slot_count, src)
 
 /mob/living/proc/pickup(obj/item/I, var/hand_type)
 	hand_type = hand_type ? hand_type : selected_hand

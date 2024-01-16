@@ -55,4 +55,5 @@
 
 #define COMSIG_HUMAN_LIFE "mob_ticked"
 
+#define SEND_GLOBAL_SIGNAL(sigtype, arguments...) ( SEND_SIGNAL(SScomponents, sigtype, ##arguments) )
 #define SEND_SIGNAL(target, sigtype, arguments...) ( !target.comp_lookup || !target.comp_lookup[sigtype] ? NONE : target._SendSignal(sigtype, list(target, ##arguments)) )

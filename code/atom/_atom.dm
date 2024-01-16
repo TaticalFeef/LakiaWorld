@@ -4,6 +4,8 @@
 
 	var/datum/health/health // vida!
 
+	var/datum/atom_stats/stats
+
 	var/initialized = FALSE
 
 /atom/New()
@@ -14,6 +16,8 @@
 	. = ..()
 	if(health)
 		ZDEL_NULL(health)
+	if(stats)
+		ZDEL_NULL(stats)
 
 /atom/proc/Initialize()
 	if(initialized)

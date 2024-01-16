@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(living)
 	if(M.client)
 		mobs_with_client -= M
 
-/mob/living/New()
+/mob/living/Initialize()
 	. = ..()
 	SSliving.add_mob(src)
 
