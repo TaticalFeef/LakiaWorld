@@ -5,6 +5,7 @@
 "e" = (/obj/item,/turf/flat/floor/grass,/area/outside)
 "f" = (/turf/solid/wall/r_wall,/area/outside)
 "g" = (/obj/machine/gun,/turf/flat/floor/grass,/area/outside)
+"h" = (/obj/item/equipable/passive/abyssal_starshot,/turf/flat/floor/grass,/area/outside)
 
 (1,1,1) = {"
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
@@ -52,7 +53,7 @@ aaccccaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 aacdddaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 aacddddaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 eefddddafaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-eeaaddddfaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+eeahddddfaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 aaaaddddfaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 aagaaaadaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 aaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
