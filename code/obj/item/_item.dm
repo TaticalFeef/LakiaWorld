@@ -31,4 +31,7 @@
 	DI.tick_rate = 1
 	DI.duration = 1
 
+	for(var/datum/modifier/mod in active_modifiers)
+		mod.apply_effect(target, DI)
+
 	return DI

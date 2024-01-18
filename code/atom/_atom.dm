@@ -6,6 +6,8 @@
 
 	var/datum/atom_stats/stats
 
+	var/list/datum/modifier/active_modifiers = list()
+
 	var/initialized = FALSE
 
 /atom/New()

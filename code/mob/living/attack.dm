@@ -14,7 +14,12 @@
 		return FALSE
 
 	face_atom(target)
+
 	var/datum/damage_instance/DI = held_item.calculate_damage(target)
+
+	for(var/datum/modifier/mod in active_modifiers)
+		mod.apply_effect(target, DI)
+
 	if(DI)
 		DI.victim = target
 		DI.source = src
