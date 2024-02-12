@@ -1,5 +1,5 @@
 /mob/
-	icon = 'player.dmi'
+	//icon = 'player.dmi'
 	var/obj/plane_master/floors/plane_master_floor
 	var/obj/plane_master/walls/plane_master_wall
 	var/obj/plane_master/mobs/plane_master_mob

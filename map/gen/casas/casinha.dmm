@@ -1,14 +1,14 @@
 "a" = (/turf/solid/wall/metal,/area{name = "INSIDE"; outside = 0})
 "b" = (/turf/flat/floor,/area{name = "INSIDE"; outside = 0})
-"c" = (/mob/living/human,/turf/flat/floor,/area{name = "INSIDE"; outside = 0})
+"c" = (/mob/living/human/ai,/turf/flat/floor,/area{name = "INSIDE"; outside = 0})
 
 (1,1,1) = {"
 aaaabbaaaa
 abbbbbbbba
 abbbbbbbba
 bbbbbbbbbb
-abbbbbbbba
 abcbbbbbba
+abbbbbbbba
 bbbbbbbbbb
 abbbbbbbba
 abbbbbbbba

@@ -3,10 +3,12 @@
 	var/list/atom/targets = list()
 	var/list/cast_order = list() //PIECE_FIRE,PIECE_FORCE,PIECE_ONHIT,PIECE_EXPLODE
 	var/list/spell_pieces = list()
+	var/verb_name = "Cast"
 
 /obj/spell/New(atom/_caster)
 	. = ..()
 	caster = _caster
+	src.verbs += new .proc/cast(src,src.verb_name,src.desc)
 
 /obj/spell/Initialize()
 	. = ..()
@@ -14,7 +16,7 @@
 		piece = new piece(caster,src)
 		spell_pieces += piece
 
-/obj/spell/verb/cast()
+/obj/spell/proc/cast()
 	cast_spell()
 
 /obj/spell/proc/cast_spell()

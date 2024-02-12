@@ -1,5 +1,5 @@
 SUBSYSTEM_DEF(damage)
-	name = "Damage"
+	name = "Dano"
 	tick_rate = 1
 	var/internal_tick_count = 0
 	var/list/queued_damage = list()
@@ -7,7 +7,7 @@ SUBSYSTEM_DEF(damage)
 /subsystem/damage/process()
 	internal_tick_count++
 	for(var/datum/damage_instance/DI in queued_damage)
-		if(!DI || !DI.source || !DI.source.is_alive())
+		if(!DI || (!DI.source && !DI.sourceless)) //|| !DI.source || !DI.source.is_alive())
 			queued_damage -= DI
 			zDel(DI)
 			continue

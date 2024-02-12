@@ -19,7 +19,7 @@
 #define GC_CURRENTLY_BEING_ZDELETED 1
 
 //scuff
-#define ZDELING(X) (!X || X.zdeleted == GC_CURRENTLY_BEING_ZDELETED)
+#define ZDELING(X) (!X || X.zdeleting)
 #define ZDELETED(X) (!X || X.zdeleted)
 #define ZDESTROYING(X) (!X || X.zdeleted == GC_CURRENTLY_BEING_ZDELETED)
 

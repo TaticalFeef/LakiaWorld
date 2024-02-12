@@ -5,6 +5,7 @@
 	var/size
 	var/base_damage = 10
 	var/damage_type = DAMAGE_PHYSICAL
+	var/rarity
 	icon = 'player.dmi'
 
 /obj/item/Initialize()

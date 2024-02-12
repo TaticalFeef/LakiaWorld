@@ -1,2 +1,10 @@
 #define STAT_STRENGTH "strength"
 #define STAT_AGILITY "agility"
+#define STAT_INTELLIGENCE "intelligence"
+#define STAT_DEXTERITY "dexterity"
+#define STAT_CHARISMA "charisma"
+#define STAT_ARMOR "armor"
+
+#define STAT_BASE "base"
+#define STAT_ADDITIONAL "additional"
+#define STAT_TEMP "temp"

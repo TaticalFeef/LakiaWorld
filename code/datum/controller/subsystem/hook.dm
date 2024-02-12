@@ -1,5 +1,5 @@
 SUBSYSTEM_DEF(hook)
-	name = "Hook Subsystem"
+	name = "Ganchos"
 	desc = "Controls the callback of hooks and whatnot."
 
 /subsystem/hook/proc/add_hook(var/event_name,var/identifier,var/datum/owner,var/datum/proc_target,var/proc_to_use)

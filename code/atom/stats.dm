@@ -2,10 +2,16 @@
 	return TRUE
 
 /atom/proc/apply_stats(datum/atom_stats/new_stats)
-	if(stats)
-		stats.combine_with(new_stats)
-		if(new_stats.temporary)
-			zDel(new_stats)
+	if(!stats)
+		stats = new /datum/atom_stats(src)
+	stats.combine_with(new_stats)
+	update_stats()
+	return TRUE
+
+/atom/proc/remove_stats(datum/atom_stats/old_stats)
+	if(stats && old_stats)
+		stats.combine_with(old_stats.negate_stats(STAT_ADDITIONAL))
+		update_stats()
 		return TRUE
 	return FALSE
 

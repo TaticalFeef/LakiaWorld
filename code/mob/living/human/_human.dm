@@ -10,6 +10,9 @@
 /mob/living/human/var/consent = FALSE
 /mob/living/human/var/datum/tentacleType/tentacle
 
+//COSMETIC
+/mob/living/human/var/datum/cosmetic/hair_style/hair_style
+
 /mob/living/human/Initialize()
 	. = ..()
 	var/pos = pick(subtypesof(/datum/tentacleType/))

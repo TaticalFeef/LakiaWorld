@@ -19,12 +19,14 @@ SUBSYSTEM_DEF(living)
 	if(istype(M))
 		mobs_list |= M
 		if(M.client)
+			global.player_list |= M
 			mobs_with_client |= M
 
 /subsystem/living/proc/remove_mob(mob/living/M)
 	mobs_list -= M
 	if(M.client)
 		mobs_with_client -= M
+		global.player_list -= M.client
 
 /mob/living/Initialize()
 	. = ..()

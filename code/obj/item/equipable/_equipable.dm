@@ -7,15 +7,17 @@
 	stats = new stats_type(src)
 
 /obj/item/equipable/proc/equip(atom/wearer)
-	if(equipped)
+	if(equipped || !wearer)
 		return FALSE
-	equipped = TRUE
-	wearer.apply_stats(stats)
-	return TRUE
+	if(wearer.apply_stats(stats))
+		equipped = TRUE
+		return TRUE
+	return FALSE
 
 /obj/item/equipable/proc/unequip(atom/wearer)
-	if(!equipped)
+	if(!equipped || !wearer)
 		return FALSE
-	equipped = FALSE
-	wearer.apply_stats(stats.negate_stats())
-	return TRUE
+	if(wearer.remove_stats(stats))
+		equipped = FALSE
+		return TRUE
+	return FALSE

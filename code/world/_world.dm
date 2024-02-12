@@ -9,7 +9,7 @@ var/tick_lag_original = 0
 	hub = "Exadv1.spacestation13"
 	hub_password = "kMZy3U5jJHSiBQjr"
 
-	mob = /mob/living/human
+	mob = /mob/new_player // /mob/living/human
 	map_format = TOPDOWN_MAP
 	movement_mode = TILE_MOVEMENT_MODE
 

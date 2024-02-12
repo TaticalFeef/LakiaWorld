@@ -1,11 +1,17 @@
-/atom/movable/Move(NewLoc,Dir=0,step_x=0,step_y=0)
+/atom/movable
+	var/base_speed = 1
+	var/next_move_time = 0
+
+/atom/movable/Move(NewLoc, Dir=0, step_x=0, step_y=0)
+	if(world.time < next_move_time)
+		return FALSE
 	var/atom/_new_loc = NewLoc
 	var/atom/_old_loc = loc
 
 	if(!can_move())
 		SEND_SIGNAL(src, COMSIG_MOVABLE_CAN_MOVE, FALSE)
 		return FALSE
-
+	SEND_SIGNAL(src, COMSIG_MOVABLE_CAN_MOVE, TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_MOVE, _new_loc)
 	if(!pre_move(_new_loc))
 		return FALSE
@@ -13,8 +19,12 @@
 	. = ..(NewLoc,Dir,step_x,step_y)
 
 	if(.)
+		next_move_time = world.time + compute_movement_delay()
 		post_move(_old_loc)
 		SEND_SIGNAL(src, COMSIG_MOVABLE_POST_MOVE, _new_loc)
+
+/atom/movable/proc/compute_movement_delay()
+	return 1 / base_speed
 
 /atom/movable/proc/can_move()
 	switch(anchored)
@@ -54,6 +64,11 @@
 					continue
 				M.Uncrossed(src)
 
+	/*if(is_turf(new_loc) && new_loc.density)
+		handle_turf_collision(new_loc)
+	else
+		loc = new_loc
+		process_move(old_loc, new_loc)*/
 	loc = new_loc
 
 	if(new_loc)
@@ -68,3 +83,7 @@
 				M.Crossed(src)
 
 	return TRUE
+
+/atom/movable/proc/handle_turf_collision(var/turf/dense_loc)
+
+/atom/movable/proc/process_move(var/atom/old_loc, var/atom/new_loc)

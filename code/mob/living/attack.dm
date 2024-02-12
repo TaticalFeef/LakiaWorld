@@ -8,21 +8,16 @@
 		return FALSE
 
 	if(!held_item || !istype(target, /mob/living))
-		return //..()
+		return
 
 	if(!can_attack_target(target))
 		return FALSE
 
 	face_atom(target)
 
-	var/datum/damage_instance/DI = held_item.calculate_damage(target)
-
-	for(var/datum/modifier/mod in active_modifiers)
-		mod.apply_effect(target, DI)
+	var/datum/damage_instance/DI = create_damage_instance(held_item, src, target, active_modifiers)
 
 	if(DI)
-		DI.victim = target
-		DI.source = src
 		SSdamage.queue_damage(DI)
 		animate_attack_effect(held_item, target)
 		apply_special_effects(target)

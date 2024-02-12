@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>HEALTH DISPLAY</title>
+    <style>
+		.health-view-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 30px;
+			background-color: #eee;
+			border-radius: 15px;
+			border: 4px solid black;
+			position: relative;
+			box-sizing: border-box;
+		}
+
+		.health-view-bar {
+			width: 100%;
+			height: 100%;
+			max-width: 100%;
+			background-color: #4CAF50;
+			border-radius: 12px;
+			transition: width 0.3s ease;
+			box-sizing: border-box;
+		}
+
+		.health-view-text {
+			position: absolute;
+			left: 50%;
+			top: 10%;
+			transform: translateX(-50%);
+			color: black;
+			font-weight: bold;
+			z-index: 2;
+		}
+
+		.health-view-template {
+			width: 100%;
+			height: 100vh;
+			display: flex;
+			align-content: center;
+			justify-content: center;
+			flex-wrap: wrap;
+			align-items: center;
+		}
+    </style>
+</head>
+<body>
+	<div class="health-view-template">
+		<div class="health-view-container" id="healthContainer">
+			<div class="health-view-bar" id="healthBar" style="width: 100%;"></div>
+			<span class="health-view-text" id="healthValue">100%</span>
+		</div>
+	</div>
+	
+    <script>
+        function updateHealthBar(value) {
+            var healthValue = Math.min(100, Math.max(0, value));
+			var healthContainer = document.getElementById('healthContainer');
+            var healthBar = document.getElementById('healthBar');
+            var healthText = document.getElementById('healthValue');
+            healthBar.style.width = healthValue + '%';
+            healthText.innerText = healthValue + '%';
+			//sendTopic('world_log',{'value': value})
+			//funfou (y)
+        }
+
+        updateHealthBar(100);
+    </script>
+</body>
+</html>

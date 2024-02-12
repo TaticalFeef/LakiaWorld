@@ -1,5 +1,6 @@
 /obj/spell/fireball
 	cast_order = list(/datum/spell_piece/fireball)
+	verb_name = "Fireball!!"
 
 /obj/spell/fireball/get_targets()
 	targets = list()
@@ -14,7 +15,7 @@
 	else
 		var/list/L = view(9,caster) - caster
 		for(var/mob/living/M in L)
-			targets |= M
+			targets = list(M)
 
 /datum/spell_piece/fireball
 
@@ -31,22 +32,37 @@
 			var/diff_y = target_turf.y - owner.y
 			var/angle = ATAN2(diff_x, diff_y)
 			var/obj/projectile/fireball/P = new /obj/projectile/fireball(owner.loc, angle, 30)
+			P.owner = owner_spell.caster
 			P.set_dir(get_dir(P,target))
 
 /obj/projectile/fireball
 	name = "Fireball"
 	icon_state = "fireball"
 	var/explosion_radius = 2
-	var/fire_damage = 20
+	var/fire_damage = 40
+	var/throw_range = 1
+	var/throw_speed = 60
+	var/mob/owner
+	light_range = 5
+	light_power = 5
+	light_color = "#aa4203"
+	collision_types = list(/mob/living)
 
 /obj/projectile/fireball/handle_collision(turf/collision_turf)
 	for(var/mob/living/M in range(explosion_radius, collision_turf))
-		var/datum/damage_instance/DI = new
-		DI.amount = fire_damage / 4
-		DI.damage_type = DAMAGE_PHYSICAL
-		DI.victim = M
-		DI.source = src
-		DI.tick_rate = 4
-		DI.duration = 4
-		M.apply_damage(DI)
-	. = ..()
+		var/datum/damage_instance/DI2 = new
+		DI2.amount = fire_damage / 3
+		DI2.damage_type = DAMAGE_PHYSICAL
+		DI2.elemental_type = ELEMENT_FIRE
+		DI2.victim = M
+		DI2.source = owner
+		DI2.sourceless = TRUE
+		DI2.tick_rate = 16
+		DI2.duration = 16
+		SSdamage.queue_damage(DI2)
+
+		var/throw_direction = get_dir(collision_turf, M)
+		var/turf/throw_target = get_edge_target_turf(M, throw_direction, throw_range)
+
+		if(M.throw_at(throw_target, throw_range, throw_speed))
+			to_chat(M, "<span class='warning'>A força da explosão te joga pra longe!</span>")

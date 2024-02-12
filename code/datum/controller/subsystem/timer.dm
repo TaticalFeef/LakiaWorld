@@ -13,12 +13,13 @@ SUBSYSTEM_DEF(timers)
 	var/current_time = world.time
 	while(timer_queue.len)
 		var/datum/timer/next_timer = timer_queue[1]
-		if(next_timer.trigger_time > current_time)
-			break
-		// rodar o timer
-		next_timer.execute()
-		// remover da queue
-		timer_queue.Cut(1, 2)
+		if(next_timer)
+			if(next_timer.trigger_time > current_time)
+				break
+			// rodar o timer
+			next_timer.execute()
+			// remover da queue
+			timer_queue.Cut(1, 2)
 
 // colocar timer na queue
 /subsystem/timers/proc/add_timer(datum/timer/t)

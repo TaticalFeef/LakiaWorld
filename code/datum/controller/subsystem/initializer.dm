@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(atom_initializer)
-    name = "Atom Initializer"
-    priority = 50
-    tick_rate = 2
+	name = "Inicializador"
+	priority = 50
+	tick_rate = 2
 
 /subsystem/atom_initializer/process()
 	var/batch_size = 100

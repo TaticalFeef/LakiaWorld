@@ -1,5 +1,5 @@
 SUBSYSTEM_DEF(stats_manager)
-	name = "Stats Manager"
+	name = "Stats"
 	var/list/registered_atoms = list()
 
 /subsystem/stats_manager/process()

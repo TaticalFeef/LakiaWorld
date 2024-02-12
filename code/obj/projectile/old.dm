@@ -131,13 +131,11 @@
 	// return FALSE pra parar
 	// da pra zdeletar, fazer lazer atravessar parede, etc
 	var/turf/T = new_loc
-	if(T && T.density)
+	if((T && T.density) || !T)
 		vel_x = -0.01
 		vel_y = -0.01
 		zDel(src)
 		return FALSE
-	if(!T) //fora do map eu acho
-		zDel(src)
 	return TRUE
 
 /obj/machine/gun/icon = 'gun.dmi'

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>BYOND Integration</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        #topBar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+
+        .btn-close {
+            background-color: rgb(126, 39, 39);
+            color: #ffffff;
+            border: none;
+            height: 20px;
+            width: 20px;
+            font-size: 7px;
+            border-radius: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: rgb(65, 14, 14);
+        }
+
+        #uiContainer {
+            
+            position: relative;
+        }
+    </style>
+    <script src="core.js"></script>
+    <script>
+        //SUBSTITUIÇÕES :
+        // user da proc Open ou o mob viewer    :       !-USER-REF-!
+        // source atom                          :       !-SOURCE-REF-!
+        // a interface em si                    :       !-SRC-REF-!
+        
+        window.onload = function() {
+            var showTopBar = '!-SHOW-TOP-BAR-!';
+            if (!showTopBar) {
+                document.getElementById('topBar').style.display = 'none';
+            }
+        };
+
+        function loadHTMLView(htmlContent) {
+            var container = document.getElementById('uiContainer');
+            container.innerHTML = htmlContent;
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+            var scripts = tempDiv.querySelectorAll('script');
+            
+            for (var i = 0; i < scripts.length; i++) {
+                var script = scripts[i];
+                var newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
+                }
+                document.body.appendChild(newScript);
+            }
+
+            if (tempDiv.parentNode) {
+                tempDiv.parentNode.removeChild(tempDiv);
+            }
+
+            signalReady()
+        }
+
+        function sendTopic(command, _args) {
+            let _url = 'byond://?';
+            _url += 'src=' + (_args._src || '!-SRC-REF-!');
+
+            if (command) {
+                _url += '&action=' + command;
+            }
+
+            for (var key in _args) {
+                if (_args.hasOwnProperty(key) && key !== '_src') {
+                   _url += '&' + key + '=' + _args[key];
+                }
+            }
+
+            window.location.href = _url;
+        }
+
+        function updateUI(elementId, newValue) {
+            var elementFound = document.getElementById(elementId);
+            if (elementFound) {
+                elementFound.innerText = newValue;
+            }
+        }
+
+        function closeUI() {
+            window.location = 'byond://?src=!-SRC-REF-!;action=closeUI';
+        }
+
+        function signalReady() {
+            window.location = 'byond://?src=!-SRC-REF-!;action=readyUI';
+        }
+    </script>
+</head>
+
+<body>
+    <div id="topBar">
+        <button class="btn-close" onclick="closeUI()">X</button>
+    </div>
+    <div id="uiContainer"></div>
+</body>
+
+</html>
