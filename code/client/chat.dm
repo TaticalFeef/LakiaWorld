@@ -20,7 +20,7 @@
 
 /proc/broadcast_talk(var/mob/speaker, var/text, var/range)
 	for(var/mob/M in view(range, speaker))
-		M << "[speaker.get_name()] says: [text]"
+		to_chat(M,"[speaker.get_name()] : [text]")
 
 /mob/proc/is_player_controlled()
 	return src.client ? TRUE : FALSE//(src in player_list)

@@ -22,7 +22,7 @@
 		src.consent = TRUE
 		R.performInteraction()
 	else
-		R << "[src] não aceitou seu pedido..."
+		to_chat(R, "[src] nï¿½o aceitou seu pedido...")
 
 /mob/living/human/proc/performInteraction()
 	partner.fug()
@@ -30,22 +30,22 @@
 /mob/living/human/proc/tentacly()
 	var/mob/living/human/p = src.partner
 	if(!p)
-		src << "Não possui parceiro!"
+		to_chat(src, "Nï¿½o possui parceiro!")
 		return
 	if(get_dist(p, src) > 1)
-		src << "Longe demais!"
+		to_chat(src, "Longe demais!")
 		return
 	if(src.tired == 0 && src.gender == "male" && src.consent && src.partner.consent)
 		src.dir = get_dir(src, src.partner)
 
-		view() << "<font color=purple><b>[src]</b> performs an action on <b>[p]</b></font>"
+		to_chat(view(), "<font color=purple><b>[src]</b> performs an action on <b>[p]</b></font>")
 		src.do_tentacly_animation(p)
 		src.bucketMeter += 10
 	else
-		src << "<font color=blue>You are too tired or lacking consent to do that.</font>"
+		to_chat(src, "<font color=blue>You are too tired or lacking consent to do that.</font>")
 
 	if(src.bucketMeter >= MAX_BUCKET_METER)
-		view() << "<big><font color=purple><b>[src]</b> Splurges!</font></big>"
+		to_chat(view(), "<big><font color=purple><b>[src]</b> Splurges!</font></big>")
 		src.bucketMeter = 0
 		var/obj/decal/cleanable/bucket_juice/C = new(src.loc)
 		C.name = "DNA Juice"
@@ -54,7 +54,7 @@
 		if(mood)
 			mood.add_moodlet(/datum/moodlet/afterglow)
 		else
-			src << "\red You feel nothing at all..."
+			to_chat(src, "\red You feel nothing at all...")
 		//hum
 		if(partner.gender == "male")
 			GET_COMPONENT_FROM(moodPartner, /datum/component/mood, src.partner)
@@ -81,13 +81,11 @@
 
 /mob/living/human/Topic(href,href_list[])
 	switch(href_list["action"])
-		if("startgame")
-			usr << "Starting game..."
 		if("bucket")
 			usr:tentacly()
 		if("other")
-			usr << "oop!"
-
+			to_chat(usr, "oop!")
+	..()
 
 /mob/living/human/proc/do_tentacly_animation(mob/living/P)
 	var/pixel_x_diff = 0

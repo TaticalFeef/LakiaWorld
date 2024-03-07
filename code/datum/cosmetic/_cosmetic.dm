@@ -13,3 +13,7 @@
 /datum/cosmetic/hair_style/straight
 	name = "Liso Curto"
 	icon_state = "straight"
+
+/datum/cosmetic/hair_style/clean
+	name = "Careca"
+	icon_state = "clean"

@@ -2,10 +2,12 @@
 	name = "alow"
 	var/slot_state
 	var/weight = 50
-	var/size
+	var/size = "Medium"
 	var/base_damage = 10
 	var/damage_type = DAMAGE_PHYSICAL
-	var/rarity
+	var/rarity = COMMON
+
+	var/has_special_attack = FALSE
 	icon = 'player.dmi'
 
 /obj/item/Initialize()
@@ -14,6 +16,13 @@
 /obj/item/Destroyed()
 	SSstats_manager.unregister_atom(src)
 	return ..()
+
+/obj/item/examine()
+	var/mob/U = usr
+	show_item_in_chat(U, name, "[weight]Kg", size, base_damage, damage_type, rarity)
+
+/obj/item/proc/special_attack(mob/living/attacker, atom/target)
+	return FALSE
 
 /obj/item/on_left_clicked(var/atom/clicker, var/obj/item/holding)
 	..()

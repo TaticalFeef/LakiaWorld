@@ -1,14 +1,14 @@
 /mob/living/human/
 /mob/living/human/icon = 'human.dmi'
-/mob/living/human/var/force
 //TODO: transforma erp em um componente
-/mob/living/human/var/mob/living/human/partner
-/mob/living/human/var/potenzia
-/mob/living/human/var/bucketMeter
-/mob/living/human/var/tired = 0
-/mob/living/human/var/tentaclePower = 0
-/mob/living/human/var/consent = FALSE
-/mob/living/human/var/datum/tentacleType/tentacle
+/mob/living/human/var/tmp/mob/living/human/partner
+/mob/living/human/var/tmp/potenzia
+/mob/living/human/var/tmp/bucketMeter
+/mob/living/human/var/tmp/tired = 0
+/mob/living/human/var/tmp/tentaclePower = 0
+/mob/living/human/var/tmp/consent = FALSE
+/mob/living/human/var/tmp/datum/tentacleType/tentacle
+/mob/living/human/var/datum/cosmetic_collection/cosmetics
 
 //COSMETIC
 /mob/living/human/var/datum/cosmetic/hair_style/hair_style

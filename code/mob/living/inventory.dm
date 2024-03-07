@@ -2,7 +2,8 @@
 	var/selected_hand = HAND_RIGHT
 
 /mob/living/proc/initialize_inventory(var/slot_count,var/equipment_slot_count)
-	inventory = new /datum/inventory(slot_count,equipment_slot_count, src)
+	if(!inventory)
+		inventory = new /datum/inventory(slot_count,equipment_slot_count, src)
 
 /mob/living/proc/pickup(obj/item/I, var/hand_type)
 	hand_type = hand_type ? hand_type : selected_hand
@@ -15,7 +16,7 @@
 		return FALSE
 
 	if(hand_slot.occupied)
-		src << "Your [hand_type] hand is already holding something."
+		to_chat(src, "Your [hand_type] hand is already holding something.")
 		return FALSE
 
 	return hand_slot.add_item(I)

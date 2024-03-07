@@ -14,6 +14,7 @@ var/tick_lag_original = 0
 	movement_mode = TILE_MOVEMENT_MODE
 
 	sleep_offline = FALSE
+	//maxz = 20
 
 /world/New()
 	. = ..()

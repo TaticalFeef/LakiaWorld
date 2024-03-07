@@ -74,13 +74,21 @@
 		to_chat(src, "<span class='warning'>Voc� n�o consegue gerar for�a para se jogar!</span>")
 
 /atom/movable/proc/SpinAnimation(loops, degrees, duration, direction = 1)
-	var/matrix/first_spin = matrix(120 * direction, MATRIX_ROTATE)
-	var/matrix/second_spin = matrix(240 * direction, MATRIX_ROTATE)
-	var/matrix/third_spin = matrix(degrees * direction, MATRIX_ROTATE)
+	//var/total_time = duration * 3 * loops
+	var/initial_transform = transform
 
-	animate(src, transform = first_spin, time = duration, loop = loops, easing = LINEAR_EASING)
-	animate(transform = second_spin, time = duration, easing = LINEAR_EASING)
-	animate(transform = third_spin, time = duration, easing = LINEAR_EASING)
+	var/matrix/first_spin = matrix() * initial_transform
+	first_spin.Turn(120 * direction)
 
-/atom/movable/proc/reset_transform(matrix/initial_transform)
+	var/matrix/second_spin = matrix() * initial_transform
+	second_spin.Turn(240 * direction)
+
+	var/matrix/third_spin = matrix() * initial_transform
+	third_spin.Turn(degrees * direction)
+
+	for(var/i = 1 to loops)
+		animate(src, transform = first_spin, time = duration, loop = 1, easing = LINEAR_EASING, flags = ANIMATION_PARALLEL)
+		animate(transform = second_spin, time = duration, easing = LINEAR_EASING, flags = ANIMATION_PARALLEL)
+		animate(transform = third_spin, time = duration, easing = LINEAR_EASING, flags = ANIMATION_PARALLEL)
+
 	animate(src, transform = initial_transform, time = 1)

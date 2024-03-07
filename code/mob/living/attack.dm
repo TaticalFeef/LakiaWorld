@@ -7,6 +7,9 @@
 	if(!can_attack(target))
 		return FALSE
 
+	if(held_item && held_item.has_special_attack && istype(target, /mob/living))
+		return held_item.special_attack(src, target)
+
 	if(!held_item || !istype(target, /mob/living))
 		return
 

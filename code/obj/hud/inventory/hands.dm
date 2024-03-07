@@ -27,9 +27,9 @@
 		if(current_hand_slot && current_hand_slot.occupied)
 			if(current_hand_slot.transfer_item(clicked_hand_slot))
 				L.selected_hand = hand_type
-				L << "You transfer the item to your [hand_type] hand."
+				to_chat(L, "You transfer the item to your [hand_type] hand.")
 			else
-				L << "You can't transfer the item to your [hand_type] hand."
+				to_chat(L, "You can't transfer the item to your [hand_type] hand.")
 		else
 			L.selected_hand = hand_type
 

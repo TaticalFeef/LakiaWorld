@@ -33,10 +33,10 @@ datum/controller/game_controller/proc/setup()
 		del(src)
 		return
 
-	world<<"Gerando casinhas..."
+	to_chat(world, "Gerando casinhas...")
 	var/datum/ruin_generator/casinhas = new("map/gen/casas/")
 	casinhas.generate_ruins(1, 10, locate(/area/ruin))
-	world<<"Casinha geradas!"
+	to_chat(world, "Casinhas geradas!")
 
 	for(var/ss_type in subtypesof(/subsystem))
 		var/subsystem/ss = new ss_type()
@@ -45,10 +45,10 @@ datum/controller/game_controller/proc/setup()
 		spawn ss.process_loop()
 
 	var/total_init_time = (world.timeofday - RLstart_time) / 10
-	world << "Total initializations complete in [total_init_time] seconds!"
+	to_chat(world, "Total initializations complete in [total_init_time] seconds!")
 
 /datum/controller/game_controller/proc/initialize_subsystem(var/subsystem/SS)
-	world<< "Inicializando SS-[SS.name]"
+	to_chat(world, "Inicializando SS-[SS.name]")
 	SS.Initialize()
-	SS.Finalize()   //burguer code me dando nojo e dor de cabeça
+	SS.Finalize()   //burguer code me dando nojo e dor de cabeï¿½a
 	CHECK_TICK()

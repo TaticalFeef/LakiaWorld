@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<style>
+		@import url('https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css');
+
+		body {
+			font-family: 'Times New Roman', Times, serif;
+			background: #f8f8f8;
+			color: #333;
+			font-size: 2vh;
+		}
+
+		#main-chat-container {
+			display: flex;
+			flex-direction: column;
+			width: 100vw;
+			height: 100vh;
+		}
+
+		#chat-container {
+			font-family: system-ui;
+			font-size: 4vw;
+			border: 2px solid #ccc;
+			border-radius: 15px;
+			padding: 20px;
+			margin: auto;
+			width: 100vw;
+			height: 89Vh;
+			overflow: auto;
+			background: white;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		#chat-input-container {
+			width: 100vw;
+			height: 10vh;
+			margin-top: 1vh;
+			position: absolute;
+			bottom: 0;
+			background: #fff;
+			display: flex;
+			flex-direction: row;
+		}
+
+		#chat-input {
+			width: 80%;
+			padding: 10px;
+			font-size: 2.5vw;
+			border-radius: 15px 0 0 15px;
+			outline: none;
+		}
+
+		#send-button {
+			width: 18%;
+			padding: 10px;
+			font-size: 2.5vw;
+			border-radius: 0 15px 15px 0;
+			outline: none;
+		}
+
+		.item-info {
+			font-size: 4vw;
+			width: 90%;
+			margin: 1vh auto 1vh auto;
+			padding: 20px;
+			background-color: #f9f9f9;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			text-align: left;
+		}
+
+		.item-info h2 {
+			text-align: center;
+			color: #333;
+		}
+
+		.item-info ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.item-info ul li {
+			margin-bottom: 10px;
+		}
+
+		.item-info ul li span {
+			font-weight: bold;
+		}
+
+		.GODLY {
+			color: #9600FF;
+		}
+
+		.PHANTASMAL {
+			color: #D900FF;
+		}
+
+		.MYSTHIC {
+			color: #FF00AB;
+		}
+
+		.LEGENDARY {
+			color: #FF006E;
+		}
+
+		.EPIC {
+			color: #FF4500;
+		}
+
+		.GOOD {
+			color: #FFD700;
+		}
+
+		.COMMON {
+			color: #778899;
+		}
+
+		.BAD {
+			color: #A9A9A9;
+		}
+
+		.HORRIBLE {
+			color: #D3D3D3;
+		}
+
+		.SHIT {
+			color: #708090;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="main-chat-container">
+		<div id="chat-container">
+		</div>
+		<div id="chat-input-container">
+			<input type="text" id="chat-input" placeholder="Mensagem...">
+			<button id="send-button">-></button>
+		</div>
+	</div>
+
+	<script type="module">
+		document.getElementById("send-button").addEventListener("click", sendMessage);
+
+		document.getElementById("chat-input").addEventListener("keypress", function (event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				sendMessage();
+			}
+		});
+
+		function sendMessage() {
+			var text = document.getElementById("chat-input").value;
+			if (text.trim() !== "") {
+				sendTopic("chat", { msg: text })
+				document.getElementById("chat-input").value = "";
+			}
+		}
+
+		function addText(text) {
+			var container = document.getElementById("chat-container");
+
+			var button = document.createElement('div');
+			button.textContent = text;
+
+			container.appendChild(button);
+		}
+
+		function showItem(name, weight, size, dmg, dmg_type, rarity) {
+			var container = document.getElementById("chat-container");
+
+			var itemDiv = document.createElement("div");
+			itemDiv.className = "item-info";
+
+			var itemHtml = '<h2>' + (name || '-') + '</h2>' +
+				'<ul>' +
+				'<li><span>Weight:</span> ' + weight + '</li>' +
+				'<li><span>Size:</span> ' + size + '</li>' +
+				'<li><span>Base Damage:</span> ' + dmg + '</li>' +
+				'<li><span>Damage Type:</span> ' + dmg_type + '</li>' +
+				'<li class="rarity ' + rarity.toUpperCase() + '"><span>Rarity:</span> ' + capitalizeFirstLetter(rarity) + '</li>' +
+				'</ul>';
+
+			itemDiv.innerHTML = itemHtml;
+
+			container.appendChild(itemDiv);
+		}
+
+		function capitalizeFirstLetter(string) {
+			return string.charAt(0).toUpperCase() + string.slice(1);
+		}
+	</script>
+</body>
+
+</html>

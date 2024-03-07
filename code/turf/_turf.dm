@@ -2,6 +2,16 @@
 	plane = PLANE_FLOOR
 	layer = LAYER_FLOOR
 
+/turf/proc/ChangeTurf(new_type)
+	if(!ispath(new_type, /turf))
+		world.log << "Change turf com tipo não turf: [new_type]"
+		return FALSE
+
+	zDel(src)
+
+	var/turf/new_turf = new new_type(src)
+	return new_turf
+
 /turf/flat/
 	plane = PLANE_FLOOR
 	layer = LAYER_FLOOR
@@ -18,6 +28,9 @@
 /turf/flat/floor
 	icon = 'floors.dmi'
 	icon_state = "floor"
+
+/turf/flat/floor/gojo/
+	icon_state = "gojo"
 
 /turf/solid/
 	density = TRUE

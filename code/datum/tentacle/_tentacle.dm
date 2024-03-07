@@ -13,7 +13,7 @@
 
 /datum/tentacleType/StrongTentacle/applyEffect(mob/living/user, mob/living/target, obj/decal/cleanable/bucket_juice/b)
 	//target.TakeBruteDamage(power * TENTACLE_DAMAGE_MULTIPLIER)
-	view() << "<font color=red><b>[target] SCREAMS!</b></font>"
+	to_chat(view(),"<font color=red><b>[target] SCREAMS!</b></font>")
 
 /datum/tentacleType/HealingTentacle
 	name = "Healing Tentacle"

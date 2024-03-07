@@ -16,14 +16,14 @@
 /datum/inventory/proc/transfer_item_between_slots(var/datum/inventory_slot/source_slot, var/datum/inventory_slot/target_slot)
 	var/mob/living/L = owner
 	if(!source_slot || !target_slot)
-		L << "Invalid source or target slot."
+		to_chat(L, "Invalid source or target slot.")
 		return FALSE
 	if(istype(source_slot, /datum/inventory_slot/hand) && source_slot.occupied)
 		if(!transfer_hand_to_slot(L, source_slot, target_slot))
-			L << "You can't transfer the item to this inventory slot."
+			to_chat(L, "You can't transfer the item to this inventory slot.")
 	else if(istype(target_slot, /datum/inventory_slot/hand))
 		if(!transfer_slot_to_hand(L, source_slot, target_slot))
-			L << "Your hand is occupied or not compatible with the item."
+			to_chat(L, "Your hand is occupied or not compatible with the item.")
 	else if(!transfer_slot_to_slot(source_slot, target_slot))
-		L << "You can't transfer the item to this slot."
+		to_chat(L, "You can't transfer the item to this slot.")
 	return TRUE

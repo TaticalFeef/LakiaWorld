@@ -51,15 +51,15 @@
 			var/datum/moodlet/moodlet = m
 			mood_messages += moodlet.message
 	var/general_mood = get_general_mood_message()
-	u << "|||||||||||||||||||||||||||||||||||||"
+	to_chat(u, "|||||||||||||||||||||||||||||||||||||")
 	if(length(mood_messages))
-		u << jointext(mood_messages, "\n")
-	u << general_mood
-	u << "|||||||||||||||||||||||||||||||||||||"
+		to_chat(u, jointext(mood_messages, "\n"))
+	to_chat(u, general_mood)
+	to_chat(u, "|||||||||||||||||||||||||||||||||||||")
 
 /datum/component/mood/proc/get_general_mood_message()
 	if(mood_value > 20)
-		return "\green Estou me sentindo ótimo!"
+		return "\green Estou me sentindo ï¿½timo!"
 	else if(mood_value > 10)
 		return "\green Estou me sentindo bem!"
 	else if(mood_value == 0)

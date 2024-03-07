@@ -8,6 +8,8 @@
 "h" = (/obj/item/equipable/passive/abyssal_starshot,/turf/flat/floor/grass,/area/outside)
 "i" = (/mob/living/human,/turf/flat/floor/grass,/area/outside)
 "j" = (/mob/living/human/ai,/turf/flat/floor/grass,/area/outside)
+"k" = (/turf/flat/floor/gojo,/area/ruin{name = "ruina misterigoza OUTSIDE"; outside = 1})
+"l" = (/turf/flat/floor/gojo,/area/outside)
 
 (1,1,1) = {"
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
@@ -44,15 +46,15 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-aaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-aajaaaaiiiaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-aaaaaaaiaiaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-aaccccaiaiaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-aacdddaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbkkbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+kkkbbkkkkkkbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+kkkkkkkkkkkbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+kbkkkkkkkbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+laallllaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+lajallaiiiaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+llaaaaaiaiaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+llccccaiaiaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+lacdddaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 aacddddaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 eefddddafaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 eeahddddfaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb

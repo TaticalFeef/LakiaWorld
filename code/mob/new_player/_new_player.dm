@@ -38,7 +38,7 @@ mob/new_player/proc/showCharacterCreation(mob/M)
 		var/datum/cosmetic/hair_style/style = new style_type
 		var/icon_id = "hair_style_[style.icon_state].png"
 		M.client << browse_rsc(icon(style.icon,style.icon_state), icon_id)
-		hair_style_options += "<option value='\ref[style]' data-icon-id='[icon_id]'>[style.name]</option>\n"
+		hair_style_options += "<option value='[style.type]' data-icon-id='[icon_id]'>[style.name]</option>\n"
 	M.client << browse_rsc(icon('human.dmi'), "human.png")
 	var/character_creation_html = {"
 	<html>
@@ -136,7 +136,14 @@ mob/new_player/proc/showCharacterCreation(mob/M)
 						<input type='hidden' name='createCharacter' value='settings' />
 						Character Name: <input type='text' name='char_name'><br>
 						Hair Style: <select name='hair_style' onchange='updateHairStylePreview()'>[hair_style_options]</select><br>
-
+						Gender: <select name='gender'>
+							<option value='male' >MALE</option>
+							<option value='female' >FEMALE</option>
+						</select><br>
+						Size: <select name='size'>
+							<option value='normal' >Normal</option>
+							<option value='tall' >Tall</option>
+						</select><br>
 						<div class="image-preview-container">
 							<img id='human_icon' src='human.png'>
 							<img id='hair_style_preview'>
@@ -153,22 +160,31 @@ mob/new_player/proc/showCharacterCreation(mob/M)
 
 mob/new_player/Topic(href, href_list)
 	if(href_list["createCharacter"] == "settings")
-		world << href
+		to_chat("world", href)
 		var/mob/new_player/SRC = src
 
 		var/char_name = href_list["char_name"]
-		var/datum/cosmetic/hair_style/selected_style = locate(href_list["hair_style"])
+		var/char_gender = href_list["gender"]
+		var/char_size = href_list["size"] //tall ou normal
+		var/datum/cosmetic/hair_style/selected_style = href_list["hair_style"]
 
 		src._hair_style = selected_style
 
 		src << browse(null, "window=char_creation")
 
 		var/mob/living/human/H = new /mob/living/human()
-
+		var/client/C = src.client
 		H.name = char_name
-		H.hair_style = selected_style
+		H.gender = char_gender
+		H.apply_cosmetic(selected_style)
 
-		H.client = src.client
+		if(char_size == "tall")
+			var/matrix/M = matrix()
+			M.Scale(1, 1.2)
+			H.transform = M
+
+		C.mob = H
+		H.client = C
 
 		src.character_created = TRUE
 

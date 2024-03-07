@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style>
+        @import url('https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css');
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: #f8f8f8;
+            color: #333;
+            font-size: 3.5vw;
+        }
+
+        #stats-container {
+            font-family: system-ui;
+            font-size: 3vw;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            padding: 20px;
+            margin: auto;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        h1 {
+            font-style: italic;
+            text-align: center;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            font-size: 1.9vh;
+        }
+
+        #stats-list,
+        #verbs-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .stat-item,
+        .verb-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dotted #ccc;
+            padding: 5px 0;
+        }
+
+        .stat-name,
+        .verb-name {
+            font-weight: bold;
+        }
+
+        .stat-value,
+        .verb-value {
+            font-weight: normal;
+        }
+
+        .tab {
+            overflow: hidden;
+
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            margin-bottom: 1vh;
+            padding: 2vh;
+        }
+
+        .tab button {
+            background-color: inherit;
+            margin-right: 2vw;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 16px;
+            transition: 0.3s;
+            font-size: 3.5vw;
+            border-radius: 10px;
+            background-color: transparent;
+            box-shadow:
+                -7px -7px 20px 0px #fff9,
+                -4px -4px 5px 0px #fff9,
+                7px 7px 20px 0px #0002,
+                4px 4px 5px 0px #0001;
+        }
+
+        .tab button:hover {
+            scale: 1.03;
+            color: #666;
+            box-shadow: 5px 5px 10px #babecc,
+                -5px -5px 10px #fff;
+        }
+
+        .tab button.active {
+            box-shadow: inset 2px 2px 5px #babecc,
+                inset -5px -5px 10px #fff;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 5px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="stats-container">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Stats')">Stats <i class="fa-solid fa-shield"></i></button>
+            <button class="tablinks" onclick="openTab(event, 'Verbs')">Verbs <i class="fa-solid fa-list"></i></button>
+            <button class="tablinks" onclick="openTab(event, 'Spells')">Spells <i class="fa-solid fa-list"></i></button>
+        </div>
+
+        <div id="Stats" class="tab-content">
+            <div id="stats-list">
+            </div>
+        </div>
+
+        <div id="Verbs" class="tab-content">
+            <div id="verbs-list">
+            </div>
+        </div>
+
+        <div id="Spells" class="tab-content">
+            <div id="spells-list">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function addStat(name, value) {
+            var statList = document.getElementById('stats-list');
+            var statItem = document.createElement('div');
+            statItem.className = 'stat-item';
+            statItem.innerHTML = '<span class="stat-name">' + name + '</span> <span class="stat-value">' + value + '</span>';
+            statList.appendChild(statItem);
+        }
+
+        function updateStat(name, newValue) {
+            var statItems = document.querySelectorAll('.stat-item');
+            for (var i = 0; i < statItems.length; i++) {
+                var item = statItems[i];
+                if (item.querySelector('.stat-name').textContent === name) {
+                    item.querySelector('.stat-value').textContent = newValue;
+                }
+            }
+        }
+
+        function addButtonWithTopic(containerId, buttonText, buttonId) {
+            var container = document.getElementById(containerId);
+
+            var button = document.createElement('button');
+            button.textContent = buttonText;
+            button.id = buttonId;
+            button.style.border = '1px solid #ccc';
+            button.style.borderRadius = '5px';
+            button.style.padding = '5px 10px';
+            button.style.margin = '5px';
+            button.style.fontSize = '2vw';
+
+            button.addEventListener('click', function () {
+                sendTopic('verb', { 'verb_name': this.id });
+            });
+
+            container.appendChild(button);
+        }
+
+        function addSpell(spellName) {
+            var container = document.getElementById('spells-list');
+            var button = document.createElement('button');
+            button.textContent = spellName;
+            button.id = spellName;
+            button.style.border = '1px solid #ccc';
+            button.style.borderRadius = '5px';
+            button.style.padding = '5px 10px';
+            button.style.margin = '5px';
+            button.style.fontSize = '2vw';
+
+            button.addEventListener('click', function () {
+                sendTopic('spell', { 'spell_name': this.id });
+            });
+
+            container.appendChild(button);
+        }
+
+        function clearSpells() {
+            var container = document.getElementById('spells-list');
+            container.innerHTML = '';
+        }
+        
+        document.getElementsByClassName("tablinks")[0].click();
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,8 @@
 		"W" = NORTH,
 		"A" = WEST,
 		"S" = SOUTH,
-		"D" = EAST
+		"D" = EAST,
+		"T" = "say",
 	)
 
 /macros/Destroyed()
@@ -17,7 +18,9 @@
 
 /macros/proc/on_pressed(button)
 	if(!owner.mob.can_use_macros) return FALSE
-
+	if(macros[button] == "say")
+		CallSay(owner.mob)
+		return TRUE
 	var/direction = macros[button]
 	if(direction && !owner.mob.macro_moving)
 		owner.mob.StartContinuousMove(direction)

@@ -1,0 +1,25 @@
+/mob/living/human/Write(savefile/F)
+	cosmetics.Write(F)
+	..()
+
+/mob/living/human/Read(savefile/F)
+	..()
+	if(!cosmetics)
+		cosmetics = new(src)
+	cosmetics.Read(F)
+
+/mob/living/human/Login()
+	. = ..()
+	if(fexists("data/[src.ckey].sav"))
+		var/savefile/F = new /savefile("data/[src.ckey].sav")
+		Read(F)
+
+/mob/living/human/Logout()
+	if(fexists("data/[src.ckey].sav"))
+		new /savefile("data/[src.ckey].sav")
+		fdel("data/[src.ckey].sav")
+	var/savefile/F = new /savefile("data/[src.ckey].sav")
+	Write(F)
+	. = ..()
+	//creizei...
+	//zDel(src)

@@ -1,0 +1,261 @@
+macro "macro"
+	elem 
+		name = "CENTER+REP"
+		command = ".center"
+	elem 
+		name = "NORTHEAST+REP"
+		command = ".northeast"
+	elem 
+		name = "SOUTHEAST+REP"
+		command = ".southeast"
+	elem 
+		name = "SOUTHWEST+REP"
+		command = ".southwest"
+	elem 
+		name = "NORTHWEST+REP"
+		command = ".northwest"
+	elem 
+		name = "WEST+REP"
+		command = ".west"
+	elem 
+		name = "NORTH+REP"
+		command = ".north"
+	elem 
+		name = "EAST+REP"
+		command = ".east"
+	elem 
+		name = "SOUTH+REP"
+		command = ".south"
+	elem 
+		name = "F1"
+		command = ".options"
+	elem 
+		name = "F2"
+		command = ".screenshot auto"
+	elem 
+		name = "SHIFT+F2"
+		command = ".screenshot"
+
+
+menu "menu"
+	elem 
+		name = "&Options and Messages...\tF1"
+		command = ".options"
+		category = "&File"
+		saved-params = "is-checked"
+	elem 
+		name = "&Quick screenshot\tF2"
+		command = ".screenshot auto"
+		category = "&File"
+		saved-params = "is-checked"
+	elem 
+		name = "&Save screenshot as...\tShift+F2"
+		command = ".screenshot"
+		category = "&File"
+		saved-params = "is-checked"
+	elem 
+		name = "&Quit"
+		command = ".quit"
+		category = "&File"
+		saved-params = "is-checked"
+	elem "stretch"
+		name = "&Stretch to fit"
+		command = ".winset \"mapwindow.map.icon-size=0\""
+		category = "&Icons"
+		is-checked = true
+		can-check = true
+		group = "size"
+		saved-params = "is-checked"
+	elem "icon32"
+		name = "&32x32"
+		command = ".winset \"mapwindow.map.icon-size=32\""
+		category = "&Icons"
+		can-check = true
+		group = "size"
+		saved-params = "is-checked"
+	elem "icon16"
+		name = "&16x16"
+		command = ".winset \"mapwindow.map.icon-size=16\""
+		category = "&Icons"
+		can-check = true
+		group = "size"
+		saved-params = "is-checked"
+	elem 
+		name = ""
+		command = ""
+		category = "&Icons"
+		saved-params = "is-checked"
+	elem "textmode"
+		name = "&Text"
+		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
+		category = "&Icons"
+		can-check = true
+		saved-params = ""
+
+
+window "mainwindow"
+	elem "mainwindow"
+		type = MAIN
+		pos = 281,0
+		size = 640x440
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		is-default = true
+		saved-params = "pos;size;is-minimized;is-maximized"
+		title = "Dream Seeker"
+		is-maximized = true
+		macro = "macro"
+		menu = "menu"
+	elem "mainvsplit"
+		type = CHILD
+		pos = 0,0
+		size = 640x440
+		anchor1 = 0,0
+		anchor2 = 100,100
+		saved-params = "splitter"
+		right = "rpane"
+		is-vert = true
+
+window "mapwindow"
+	elem "mapwindow"
+		type = MAIN
+		pos = 291,0
+		size = 640x480
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		saved-params = "pos;size;is-minimized;is-maximized"
+		titlebar = false
+		statusbar = false
+		can-close = false
+		can-minimize = false
+		can-resize = false
+		is-pane = true
+	elem "map"
+		type = MAP
+		pos = 0,0
+		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
+		text-color = #000000
+		is-default = true
+		saved-params = "icon-size"
+		on-show = ".winset\"mainwindow.mainvsplit.left=mapwindow\""
+		on-hide = ".winset\"mainwindow.mainvsplit.left=\""
+
+window "outputwindow"
+	elem "outputwindow"
+		type = MAIN
+		pos = 291,0
+		size = 640x525
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		background-color = none
+		is-transparent = true
+		saved-params = "pos;size;is-minimized;is-maximized"
+		titlebar = false
+		statusbar = false
+		can-close = false
+		can-minimize = false
+		can-resize = false
+		is-pane = true
+		alpha = 0
+		outer-size = 654x539
+		inner-size = 640x525
+	elem "browser"
+		type = BROWSER
+		pos = 0,0
+		size = 640x160
+		anchor1 = 0,0
+		anchor2 = 100,43
+		background-color = none
+		saved-params = ""
+		auto-format = true
+	elem "chatbrowser"
+		type = BROWSER
+		pos = 0,232
+		size = 640x288
+		anchor1 = 0,0
+		anchor2 = 100,100
+		background-color = none
+		saved-params = ""
+
+window "rpane"
+	elem "rpane"
+		type = MAIN
+		pos = 291,0
+		size = 640x480
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		saved-params = "pos;size;is-minimized;is-maximized"
+		is-pane = true
+	elem "rpanewindow"
+		type = CHILD
+		pos = 0,0
+		size = 640x499
+		anchor1 = 0,0
+		anchor2 = 100,100
+		saved-params = "splitter"
+		right = "outputwindow"
+		is-vert = false
+	elem "textb"
+		type = BUTTON
+		pos = 0,0
+		size = 60x20
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		is-visible = false
+		saved-params = "is-checked"
+		text = "Text"
+		command = ".winset \"rpanewindow.left=;\""
+		is-checked = true
+		group = "rpanemode"
+		button-type = pushbox
+	elem "browseb"
+		type = BUTTON
+		pos = 65,0
+		size = 60x20
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		is-visible = false
+		saved-params = "is-checked"
+		text = "Browser"
+		command = ".winset \"rpanewindow.left=browserwindow\""
+		group = "rpanemode"
+		button-type = pushbox
+	elem "infob"
+		type = BUTTON
+		pos = 130,0
+		size = 60x20
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		is-visible = false
+		saved-params = "is-checked"
+		text = "Info"
+		command = ".winset \"rpanewindow.left=infowindow\""
+		group = "rpanemode"
+		button-type = pushbox
+
+window "browserwindow"
+	elem "browserwindow"
+		type = MAIN
+		pos = 291,0
+		size = 640x480
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		saved-params = "pos;size;is-minimized;is-maximized"
+		title = "Browser"
+		is-pane = true
+	elem "browser"
+		type = BROWSER
+		pos = 0,0
+		size = 640x499
+		anchor1 = 0,0
+		anchor2 = 100,100
+		background-color = #ffffff
+		is-default = true
+		saved-params = ""
+		show-history = true
+		auto-format = true
+		on-show = ".winset\"rpane.infob.is-visible=true?rpane.infob.pos=130,0;rpane.textb.is-visible=true;rpane.browseb.is-visible=true;rpane.browseb.is-checked=true;rpane.rpanewindow.pos=0,30;rpane.rpanewindow.size=0x0;rpane.rpanewindow.left=browserwindow\""
+		on-hide = ".winset\"rpane.browseb.is-visible=false;rpane.infob.is-visible=true?rpane.infob.is-checked=true rpane.infob.pos=65,0 rpane.rpanewindow.left=infowindow:rpane.rpanewindow.left=textwindow rpane.textb.is-visible=false rpane.rpanewindow.pos=0,0 rpane.rpanewindow.size=0x0\""
+

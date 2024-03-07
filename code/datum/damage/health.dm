@@ -14,26 +14,25 @@
 			var/mob/living/O = owner
 			O.last_aggressor = DI.source
 
-		var/damage_reduction = 0
-		var/old_health = current_health
+			var/def_divisor = 2
+			var/old_health = current_health
 
-		if(owner?.stats)
-			damage_reduction = owner.stats.get_stat(STAT_ARMOR)
+			var/armor = owner?.stats ? owner.stats.get_stat(STAT_ARMOR) : 0
 
-		switch(DI.damage_type)
-			if(DAMAGE_PHYSICAL, DAMAGE_MAGICAL)
-				var/effective_damage = max(0, DI.amount - damage_reduction)
-				current_health -= effective_damage
-			if(DAMAGE_TRUE)
-				current_health -= DI.amount
+			switch(DI.damage_type)
+				if(DAMAGE_PHYSICAL, DAMAGE_MAGICAL)
+					var/effective_damage = (DI.amount) / (1 + (armor / def_divisor))
+					current_health -= effective_damage
+				if(DAMAGE_TRUE)
+					current_health -= DI.amount
 
-		if(old_health != current_health)
-			create_damage_popup(DI.damage_type, old_health-current_health)
-		else
-			create_damage_popup(DI.damage_type, 0)
+			if(old_health != current_health)
+				create_damage_popup(DI.damage_type, old_health - current_health)
+			else
+				create_damage_popup(DI.damage_type, 0)
 
-		if(current_health <= 0)
-			handle_death()
+	if(current_health <= 0)
+		handle_death()
 
 /datum/health/proc/handle_death()
 	return zDel(owner)

@@ -1,6 +1,8 @@
 /obj/item/equipable/passive/abyssal_starshot
 	icon_state = "abyssal_starshot"
 	slot_state = "abyssal_starshot_slot"
+	name = "Abyssal StarShot"
+	rarity = LEGENDARY
 
 /obj/item/equipable/passive/abyssal_starshot/equip(atom/wearer)
 	. = ..()

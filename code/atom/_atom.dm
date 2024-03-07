@@ -1,6 +1,6 @@
 /atom/
-	var/attack_next //Quando vai liberar o ataque
-	var/attack_cooldown = 5 //cooldown do ataque
+	var/tmp/attack_next //Quando vai liberar o ataque
+	var/tmp/attack_cooldown = 5 //cooldown do ataque
 
 	var/datum/health/health // vida!
 
@@ -8,7 +8,7 @@
 
 	var/list/datum/modifier/active_modifiers = list()
 
-	var/initialized = FALSE
+	var/tmp/initialized = FALSE
 
 /atom/New()
 	. = ..()
@@ -40,6 +40,3 @@
 		return
 	..()
 	return
-
-/atom/proc/examine()
-	return desc

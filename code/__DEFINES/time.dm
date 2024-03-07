@@ -15,3 +15,7 @@
 
 #define FPS_CLIENT 60 //0 Means synced. Also this is default, players can change this for themselves.
 #define FPS_SERVER 20
+
+#define SECONDS *10
+#define MINUTES SECONDS*60
+#define HOURS MINUTES*60

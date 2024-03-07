@@ -10,7 +10,7 @@
 
 /obj/decal/cleanable/bucket_juice/Click()
 	set src in oview(1)
-	view() << "<font color=blue>[usr] cleans up the [src.name]</font>"
+	to_chat(view(), "<font color=blue>[usr] cleans up the [src.name]</font>")
 	zDel(src)
 
 /obj/decal/cleanable/bucket_juice/Destroyed()
