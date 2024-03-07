@@ -27,7 +27,7 @@
 /mob/living/human/proc/performInteraction()
 	partner.fug()
 
-/mob/living/human/proc/tentacly()
+/mob/living/human/proc/tentacly(action)
 	var/mob/living/human/p = src.partner
 	if(!p)
 		to_chat(src, "N�o possui parceiro!")
@@ -37,14 +37,18 @@
 		return
 	if(src.tired == 0 && src.gender == "male" && src.consent && src.partner.consent)
 		src.dir = get_dir(src, src.partner)
-
-		to_chat(view(), "<font color=purple><b>[src]</b> performs an action on <b>[p]</b></font>")
-		src.do_tentacly_animation(p)
-		src.bucketMeter += 10
+		if(action == "fuck")
+			to_chat(view(), "<font color=purple><b>[src]</b> performs an action on <b>[p]</b></font>")
+			src.do_tentacly_animation(p)
+			src.bucketMeter += rand(10,15)
+		else if(action == "feet")
+			to_chat(view(), "<font color=purple><b>[src]</b> sucks <b>[p]</b>'s feet</font>")
+			src.do_tentacly_animation(p)
+			src.bucketMeter += rand(1,5)
 	else
 		to_chat(src, "<font color=blue>You are too tired or lacking consent to do that.</font>")
 
-	if(src.bucketMeter >= MAX_BUCKET_METER)
+	if(src.bucketMeter >= MAX_BUCKET_METER && action == "fuck")
 		to_chat(view(), "<big><font color=purple><b>[src]</b> Splurges!</font></big>")
 		src.bucketMeter = 0
 		var/obj/decal/cleanable/bucket_juice/C = new(src.loc)
@@ -74,6 +78,7 @@
 	<Body style='background-color: #dfdfdf;'>
 	<p>Select an action</p>
 	<a href='?src=\ref[src];action=bucket' class='aButton'>Tentacle Interaction (10 - 15)</a>
+	<a href='?src=\ref[src];action=feet' class='aButton'>Suck Feet (1 - 5)</a>
 	<a href='?src=\ref[src];action=other' class='aButton'>Other Interaction</a>
 	</Body>
 	"}
@@ -82,7 +87,9 @@
 /mob/living/human/Topic(href,href_list[])
 	switch(href_list["action"])
 		if("bucket")
-			usr:tentacly()
+			usr:tentacly("fuck")
+		if("feet")
+			usr:tentacly("feet")
 		if("other")
 			to_chat(usr, "oop!")
 	..()
