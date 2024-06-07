@@ -1,0 +1,5 @@
+// -- reagent state
+#define REAGENT_STATE_SOLID 1
+#define REAGENT_STATE_LIQUID 2
+#define REAGENT_STATE_GAS 3
+#define REAGENT_STATE_PLASMA 4
